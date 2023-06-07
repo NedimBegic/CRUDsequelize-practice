@@ -42,3 +42,20 @@ exports.postBootcamp = asyncHandler(async (req, res, next) => {
     data: bootcamp,
   });
 });
+
+// desc     Update bootcamp
+//@route    PUT /bootcamps
+// @acces   Public
+exports.updateBootcamp = asyncHandler(async (req, res, next) => {
+  const bootcamp = await Bootcamp.findByPk(req.params.id);
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(`No bootcamp with this id ${req.params.id}`, 400)
+    );
+  }
+  const updatedBootcamp = await bootcamp.update(req.body);
+  res.status(200).json({
+    success: true,
+    data: updatedBootcamp,
+  });
+});

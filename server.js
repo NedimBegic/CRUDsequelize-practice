@@ -3,6 +3,7 @@ const express = require("express");
 const { sequelize } = require("./models");
 // Routes
 const bootcamp = require("./routes/bootcamp");
+const courses = require("./routes/courses");
 const errorHandler = require("./middleware/error");
 
 const app = express();
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/bootcamp", bootcamp);
+app.use("/courses", courses);
 
 app.use(errorHandler);
 

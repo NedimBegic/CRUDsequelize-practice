@@ -1,33 +1,29 @@
 "use strict";
 const { Model } = require("sequelize");
-const curses = require("./curses");
 module.exports = (sequelize, DataTypes) => {
-  class Bootcamp extends Model {
+  class Curses extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Curses }) {
+    static associate({ Bootcamp }) {
       // define association here
-      this.hasMany(Curses, { foreignKey: "bootcampId" });
+      // we must define what property bootcamp the curse belings
+      this.belongsTo(Bootcamp, { foreignKey: "bootcampId" });
     }
   }
-  Bootcamp.init(
+  Curses.init(
     {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
+      title: DataTypes.STRING,
       description: DataTypes.STRING,
-      housing: DataTypes.BOOLEAN,
-      averageCost: DataTypes.INTEGER,
+      tuition: DataTypes.INTEGER,
+      bootcampId: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "Bootcamp",
+      modelName: "Curses",
     }
   );
-  return Bootcamp;
+  return Curses;
 };
